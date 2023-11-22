@@ -10,33 +10,44 @@
 #include <stdlib.h>
 #include <time.h>
 
-void carga_vector();
-void menu();
+void carga_vector(int cant,int *num);
+void menu(int cant,int *num);
+void cuarto_elemento(int cant,int *num);
+void imprimir_vector(int cant, int *num);
 
 int main()
-{
-
-
-    //Se llama a la función
-    menu();
-
-    return 0;
-}
-void carga_vector()
 {
     int cant=10;
     int num[cant];
 
+    //Se llama a la función
+    menu(cant,num);
+
+    return 0;
+}
+void carga_vector(int cant,int *num)
+{
     srand(time(NULL));
     //Carga del vector
     for (int i=0; i<cant; i++)
     {
-        num[i]=rand()%100;
-        printf("%d. %d\n",i+1,num[i]);
+        *(num+i)=rand()%100;
     }
 }
-void menu()
+void imprimir_vector(int cant, int *num)
 {
+    carga_vector(cant, num);
+        for (int i=0; i<cant; i++)
+        {
+            printf("%d. %d\n",i+1,*(num+i));
+        }
+        printf("\n");
+
+}
+void menu(int cant,int *num)
+{
+    imprimir_vector(cant,num);
+
     char opc='A';
 
     printf("Elegir opc: \n");
@@ -49,12 +60,22 @@ void menu()
     printf("	g. Todos los numeros.\n");
     printf("Opc: ");
     scanf("%c",&opc);
+    printf("\n");
 
     switch(opc)
     {
+    case 'a':
+        //system("cls");
+        cuarto_elemento(cant,num);
+        break;
     case 'g':
-        system("cls");
-        carga_vector();
+        //system("cls");
+
         break;
     }
+}
+void cuarto_elemento(int cant,int *num)
+{
+    carga_vector(cant,num);
+    printf("Cuarto elemento: %d\n",*(num+3));
 }
